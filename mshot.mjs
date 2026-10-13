@@ -1,0 +1,10 @@
+import puppeteer from 'puppeteer';
+const [url,name] = [process.argv[2],process.argv[3]];
+const full = process.argv.includes('--full');
+const b = await puppeteer.launch({headless:'new',args:['--no-sandbox']});
+const p = await b.newPage();
+await p.setViewport({width:390,height:844,deviceScaleFactor:2,isMobile:true,hasTouch:true});
+await p.goto(url,{waitUntil:'networkidle2',timeout:60000});
+await new Promise(r=>setTimeout(r,600));
+await p.screenshot({path:`temporary_screenshots/${name}.png`,fullPage:full});
+console.log('saved',name); await b.close();
