@@ -17,3 +17,6 @@ temporary_screenshots/
 *.log
 .vscode/
 .idea/
+
+# Separate projects that live in this folder but don't belong in this repo
+247roofing/
