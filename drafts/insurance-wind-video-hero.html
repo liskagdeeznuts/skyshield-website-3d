@@ -1,0 +1,61 @@
+<!-- Removed Nov 12 2026 (owner's call). Needs assets/js/wind.js + the .wind-hero CSS from git history. -->
+    <!-- ======================= HERO: WIND DAMAGE VIDEO ======================= -->
+    <!-- Full-bleed, autoplaying (muted, looping) 19s wind-damage animation with the
+         headline over it. The stage tracker along the bottom is synced to the video's
+         own five beats (looks fine -> wind gets under -> seal broken -> water finds the
+         nails -> hidden leak). Reduced-motion / capture mode shows the poster frame. -->
+    <section class="wind-hero" id="wind" aria-labelledby="wind-h">
+      <div class="wind-media" aria-hidden="true">
+        <video class="wind-video" poster="assets/video/wind-damage-poster.jpg" muted playsinline loop preload="auto"
+          data-src="assets/video/wind-damage-hero.mp4" data-src-sm="assets/video/wind-damage-hero-960.mp4"
+          tabindex="-1"></video>
+        <div class="wind-scrim"></div>
+      </div>
+
+      <div class="wrap wind-inner">
+        <div class="wind-copy">
+          <p class="eyebrow" data-reveal="up">Storm &amp; wind damage &middot; Insurance restoration</p>
+          <h1 class="display h-hero" id="wind-h" data-reveal="up" data-delay="0.06">Looks fine from the driveway. <span class="accent">Wind damage counts on that.</span></h1>
+          <p class="lede" data-reveal="up" data-delay="0.12">A gust doesn't have to rip shingles off. It lifts a tab, breaks the seal, and water finds the nails. By the time a stain shows on your ceiling, the roof has been leaking for months. We find it first, document it, and walk you through the claim.</p>
+          <div class="hero-actions wind-actions" data-reveal="up" data-delay="0.18">
+            <a class="btn btn--primary" href="#contact">Get a Free Inspection
+              <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+            </a>
+            <a class="btn btn--ghost" href="#matching-law">The Connecticut matching law</a>
+          </div>
+          <p class="wind-trust" data-reveal="up" data-delay="0.24">
+            <span class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            <span><strong>5.0</strong> on Google, 167 reviews<span class="wind-trust-x"> &middot; TAMKO Diamond Pro, top 5%</span></span>
+          </p>
+        </div>
+      </div>
+
+      <div class="wrap wind-bar" data-reveal="up" data-delay="0.3">
+        <div class="wind-stages-wrap">
+          <p class="wind-now" aria-live="polite"><b>01</b><span>Looks fine</span></p>
+          <ol class="wind-stages" aria-label="The seven stages of hidden wind damage, synced to the animation">
+            <li data-from="0" data-to="4.7"><button type="button"><i></i><span><b>01</b>Looks fine</span></button></li>
+            <li data-from="4.7" data-to="7.2"><button type="button"><i></i><span><b>02</b>Wind gets under</span></button></li>
+            <li data-from="7.2" data-to="9.6"><button type="button"><i></i><span><b>03</b>Seal broken</span></button></li>
+            <li data-from="9.6" data-to="16.2"><button type="button"><i></i><span><b>04</b>Water finds the nails</span></button></li>
+            <li data-from="16.2" data-to="19"><button type="button"><i></i><span><b>05</b>Hidden leak</span></button></li>
+            <li data-from="19" data-to="22.7"><button type="button"><i></i><span><b>06</b>Mold sets in</span></button></li>
+            <li data-from="22.7" data-to="29.7"><button type="button"><i></i><span><b>07</b>Ceiling fails</span></button></li>
+          </ol>
+        </div>
+        <button class="wind-toggle" type="button" aria-label="Pause animation" aria-pressed="false">
+          <svg class="wt-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+          <svg class="wt-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- ======================= HOW WIND DAMAGE PROGRESSES ======================= -->
+    <section class="section wind-primer" id="how-it-happens" aria-labelledby="how-h">
+      <div class="wrap">
+        <div class="ins-hero-head">
+          <p class="eyebrow" data-reveal="up">How it happens</p>
+          <h2 class="display h-section" id="how-h" data-reveal="up" data-delay="0.06">Wind or hail, the damage starts where you can't see it.</h2>
+          <p class="lede" data-reveal="up" data-delay="0.12">Wind lifts a tab and breaks the seal. Hail bruises the shingle and cracks the mat underneath. Either way the roof looks fine from the ground while water finds its way in. Pick one and watch how it plays out.</p>
+        </div>
+

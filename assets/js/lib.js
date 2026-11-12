@@ -154,12 +154,38 @@
   if (drawer) drawer.querySelectorAll("a").forEach(function (a) { a.addEventListener("click", closeDrawer); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeDrawer(); });
 
-  /* ---- Contact form (front-end success state) ----------------------------- */
-  var form = document.querySelector("form[data-contact]");
-  if (form) form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    if (!form.checkValidity()) { form.reportValidity(); return; }
-    form.classList.add("is-sent");
+  /* ---- Contact form -> Netlify Forms -------------------------------------- */
+  // Netlify registers any <form data-netlify="true"> at deploy time and accepts a
+  // urlencoded POST to "/". On success we show the thank-you state and log a GA4
+  // lead; on failure we show the call-us fallback so no lead is silently lost.
+  Array.prototype.slice.call(document.querySelectorAll("form[data-contact]")).forEach(function (form) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (form.classList.contains("is-sending")) return;
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+      form.classList.remove("is-error");
+      form.classList.add("is-sending");
+      var body = new URLSearchParams(new FormData(form)).toString();
+      fetch("/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: body })
+        .then(function (r) {
+          if (!r.ok) throw new Error("HTTP " + r.status);
+          form.classList.remove("is-sending");
+          form.classList.add("is-sent");
+          if (typeof window.gtag === "function") {
+            window.gtag("event", "generate_lead", { form_name: form.getAttribute("name"), page_path: location.pathname });
+          }
+        })
+        .catch(function () {
+          form.classList.remove("is-sending");
+          form.classList.add("is-error");
+        });
+    });
+  });
+
+  /* ---- Analytics: phone taps are the other main lead source ---------------- */
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="tel:"]');
+    if (a && typeof window.gtag === "function") window.gtag("event", "click_to_call", { link_url: a.getAttribute("href"), page_path: location.pathname });
   });
 
   /* ---- Boot --------------------------------------------------------------- */

@@ -1,0 +1,298 @@
+# Netlify configuration for www.skyshieldroofing.com
+# Build: copies only public files into dist/ (see build.mjs). No npm packages are needed
+# to build, so NODE_ENV=production keeps Puppeteer and ffmpeg (dev-only tools) off the server.
+
+[build]
+  command = "node build.mjs"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+  NODE_ENV = "production"
+  PUPPETEER_SKIP_DOWNLOAD = "true"
+
+# ---------------------------------------------------------------------------------------
+# Domains. www.skyshieldroofing.com is primary; Netlify sends the bare domain to www.
+# skyshieldroofpro.com (the email domain) forwards here once its DNS points at Netlify.
+# ---------------------------------------------------------------------------------------
+[[redirects]]
+  from = "https://skyshieldroofpro.com/*"
+  to = "https://www.skyshieldroofing.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.skyshieldroofpro.com/*"
+  to = "https://www.skyshieldroofing.com/:splat"
+  status = 301
+  force = true
+
+# ---------------------------------------------------------------------------------------
+# Old Wix URLs -> closest page on the new site (301 keeps Google's existing links and
+# rankings flowing to the new pages). Old store/profile junk falls through to the 404.
+# ---------------------------------------------------------------------------------------
+# Storm, hail and emergency pages -> insurance page
+[[redirects]]
+  from = "/insuranceclaims-stormdamage"
+  to = "/insurance.html"
+  status = 301
+[[redirects]]
+  from = "/hail-damage-roof-inspection-ct"
+  to = "/insurance.html"
+  status = 301
+[[redirects]]
+  from = "/emergency-roof-repair"
+  to = "/insurance.html"
+  status = 301
+
+# Residential roofing / ventilation -> the roof system page
+[[redirects]]
+  from = "/residential-roofing"
+  to = "/shingles.html"
+  status = 301
+[[redirects]]
+  from = "/roof-ventilation"
+  to = "/shingles.html"
+  status = 301
+
+# Legal pages -> combined privacy & terms page
+[[redirects]]
+  from = "/privacy-policy"
+  to = "/privacy.html"
+  status = 301
+[[redirects]]
+  from = "/termsandconditions"
+  to = "/privacy.html"
+  status = 301
+[[redirects]]
+  from = "/accessibility-statement"
+  to = "/privacy.html"
+  status = 301
+
+# Contact, inspection, about, FAQ, blog and state pages -> home (form + FAQ live there)
+[[redirects]]
+  from = "/copy-of-exeter-ri"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/servicearea"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/roof-inspection"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/copy-of-roof-inspections"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/online-estimate"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/lead-collection"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/contact"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/services"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/commercial-roofing"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/roof-financing-options"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/projects"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/questions"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/about-skyshieldroofingofnewengland"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/skyshieldgivesback"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/search"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/blog"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/roofing-contractor-connecticut"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/roofing-contractor-rhode-island"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/roofing-contractor-massachusetts"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/post/*"
+  to = "/"
+  status = 301
+
+# Town landing pages -> home (the full service-area list is in the footer and structured data)
+[[redirects]]
+  from = "/roofing-contractor-north-kingstown-ri"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/roofing-contractor-lebanon-ct"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/roofing-contractor-voluntown-ct"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/roofing-contractor-stonington-ct"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/roofing-contractor-westerly-ri"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/roofing-contractor-norwich-ct"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/roofing-contractor-oldlyme-ct"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/roofing-contractor-salem-ct"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/roofing-contractor-charlestown-ri"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/roofing-contractor-griswold-ct"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/roofing-contractor-northstonington-ct"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/roofing-contractor-sprague-ct"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/roofing-contractor-south-kingstown-ri"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/roofing-contractor-bozrah-ct"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/roofing-contractor-newlondon-ct"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/roofing-contractor-narragansett-ri"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/roofing-contractor-waterford-ct"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/roofing-contractor-montville-ct"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/roofing-contractor-eastlyme-ct"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/roofing-contractor-lyme-ct"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/roofing-contractor-richmond-ri"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/roofing-contractor-preston-ct"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/roofing-contractor-blockisland-ri"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/roofing-contractor-franklin-ct"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/roofing-contractor-groton-ct"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/roofing-contractor-colchester-ct"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/roofing-contractor-ledyard-ct"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/roofing-contractor-exeter-ri"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/roofing-contractor-lisbon-ct"
+  to = "/"
+  status = 301
+
+# ---------------------------------------------------------------------------------------
+# Headers
+# ---------------------------------------------------------------------------------------
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=()"
+
+# Animations and images rarely change. Cache for a day, then refresh in the background.
+# (If an animation is replaced under the same filename, visitors get it within a day.)
+[[headers]]
+  for = "/assets/video/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
+
+[[headers]]
+  for = "/assets/roof-system/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
+
+[[headers]]
+  for = "/assets/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"

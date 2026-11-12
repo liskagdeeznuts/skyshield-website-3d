@@ -4,10 +4,11 @@
 import { createServer } from 'node:http';
 import { readFile, stat, readdir } from 'node:fs/promises';
 import { createReadStream } from 'node:fs';
-import { join, extname, normalize } from 'node:path';
+import { join, extname, normalize, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const ROOT = fileURLToPath(new URL('.', import.meta.url));
+// ROOT=dist serves the built site exactly as Netlify will (see build.mjs).
+const ROOT = process.env.ROOT ? resolve(process.env.ROOT) + '/' : fileURLToPath(new URL('.', import.meta.url));
 const PORT = Number(process.env.PORT) || 3000;
 
 const MIME = {
@@ -16,6 +17,9 @@ const MIME = {
   '.js': 'text/javascript; charset=utf-8',
   '.mjs': 'text/javascript; charset=utf-8',
   '.json': 'application/json; charset=utf-8',
+  '.webmanifest': 'application/manifest+json',
+  '.xml': 'application/xml; charset=utf-8',
+  '.txt': 'text/plain; charset=utf-8',
   '.svg': 'image/svg+xml',
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
@@ -41,8 +45,15 @@ const server = createServer(async (req, res) => {
     try {
       info = await stat(filePath);
     } catch {
-      res.writeHead(404, { 'Content-Type': 'text/plain' });
-      res.end('404 Not Found');
+      // Mirror Netlify: serve 404.html (if present) with a 404 status.
+      try {
+        const page = await readFile(join(ROOT, '404.html'));
+        res.writeHead(404, { 'Content-Type': 'text/html; charset=utf-8' });
+        res.end(page);
+      } catch {
+        res.writeHead(404, { 'Content-Type': 'text/plain' });
+        res.end('404 Not Found');
+      }
       return;
     }
 

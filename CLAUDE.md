@@ -16,7 +16,9 @@ image sequence scrubbed on a `<canvas>` as the user scrolls, so the roof system
 appears to assemble/explode. Supporting motion (smooth scroll, pinned sections,
 parallax, count-ups, staggered reveals) is layered on with GSAP.
 
-Canonical production URL: `https://www.skyshieldroofpro.com/`
+Canonical production URL: `https://www.skyshieldroofing.com/` (www is primary).
+`skyshieldroofpro.com` is the **email** domain (sales@skyshieldroofpro.com) and only forwards to the site.
+Never use roofpro in canonicals, schema or sitemaps.
 
 ## Tech stack & libraries
 - **Plain HTML + CSS + vanilla JS** — no bundler, no framework, no build step.
@@ -47,7 +49,13 @@ Canonical production URL: `https://www.skyshieldroofpro.com/`
 ## File structure
 ```
 index.html              # Home (hero, roof-system canvas animation, why-us, stats)
-insurance.html          # Insurance / wind-damage page (full-bleed video hero)
+insurance.html          # Storm damage / insurance page (opens on the Wind / Hail explainer)
+privacy.html            # Privacy policy + website & SMS terms + accessibility (footer-linked only)
+404.html                # Not-found page (uses root-absolute /assets paths on purpose)
+robots.txt sitemap.xml llms.txt site.webmanifest favicon.ico apple-touch-icon.png   # SEO + AI-search files
+build.mjs               # Builds dist/: ships only pages + referenced assets (fails on broken refs)
+netlify.toml            # Netlify build, 59 old-Wix-URL 301s, headers, roofpro -> roofing redirect
+drafts/                 # Sections pulled until real photos exist (restore when assets arrive)
 shingles.html           # Shingles / product page
 assets/
   css/styles.css        # All site styles (hand-written)
@@ -56,7 +64,7 @@ assets/
     lib.js              # Shared behavior on every page (Lenis+GSAP, reveals, nav, count-up)
     home.js             # Home scroll mechanics (roof canvas scrub, parallax, why-us)
     shingles.js         # Shingles page behavior
-    wind.js             # Insurance page: wind-damage video hero (autoplay, stage tracker)
+    wind.js             # UNUSED since Nov 12 2026 (old insurance video hero; see drafts/)
     roof-system.js      # Home roof scroll scene (kit)
     storm-explainer.js  # Insurance Wind / Hail explainer with tabs + steps (kit)
     process-tracker.js  # Insurance phone: live progress tracker (kit)
@@ -84,25 +92,29 @@ not part of the SkyShield site itself.
 node serve.mjs            # serves project root at http://localhost:3000
 PORT=4000 node serve.mjs  # custom port
 ```
-No install needed to view the site (CDN libs, no build). For screenshot tooling:
+Production build (what Netlify deploys):
+```bash
+node build.mjs                      # -> dist/
+ROOT=dist PORT=4000 node serve.mjs  # preview the build exactly as it deploys
+```
+No install needed to view the site (CDN libs). For screenshot tooling:
 `npm install` (pulls puppeteer + ffmpeg-static). Do not start a second server
 instance if one is already running.
 
 ## Current status / what's unfinished
-Observed state (verify against latest work — some of this is inferred from the code):
-- **Live-ish pages:** `index.html`, `insurance.html`, `shingles.html`.
-- **Insurance page hero** is now the 19s wind-damage animation (`assets/video/`), autoplaying
-  muted + looping with the headline over it and a stage tracker synced to the clip. The old
-  WIND_DAMAGE_SLOT is filled; the 4-step diagram moved to its own section below the hero.
-- **Animation kit installed (Nov 12, 2026, uncommitted):** home roof scene, insurance
-  Wind / Hail explainer (in #how-it-happens, under the video hero) + live phone tracker,
-  shingles ridge-vent player. Kit source: `~/Downloads/skyshield-kit/`. Open question:
-  the insurance page now shows the wind animation twice (full-bleed hero + explainer).
-- Hosting/deploy not yet set up here — discussed moving hosting to a static host
-  (e.g. Netlify / Cloudflare Pages) and pointing the GoDaddy/Squarespace domain
-  at it (Wix was the prior host and is a poor fit for a hand-coded site).
-- `247roofing/` and `hummingbird/` are separate works-in-progress with their own
-  status (see project memory / their own files).
+Go-live build done Nov 12, 2026 (owner decisions: keep it to 3 pages + privacy; hide sections
+that need real photos; insurance page opens on the Wind/Hail explainer, video hero removed).
+- **Hosting:** Netlify, deploying from GitHub `main` (`netlify.toml`). Forms: Netlify Forms
+  (`free-inspection`, honeypot `company`), submitted via fetch in `lib.js`; GA4 `G-8H2XQ75DHJ`
+  loads only on the live hostname and logs `generate_lead` + `click_to_call`.
+- **DNS:** skyshieldroofing.com is at GoDaddy (DNS at GoDaddy, Google Workspace MX). Switch only the
+  apex A record + www CNAME to Netlify; never touch MX/TXT. skyshieldroofpro.com is at Squarespace
+  with DNS **inside Wix**: move its DNS (MX, SPF, DMARC, verification TXT) before canceling Wix or
+  sales@ email breaks.
+- **Waiting on owner:** CT HIC registration # (footer, all pages), exact Google review count
+  (pages say 167, old site said 125+), photos (thank-you card, before/after, drone, Titan XT),
+  "Why TAMKO" quote, warranty specifics for the FAQ, which Facebook/Instagram are canonical.
+- **Animations:** Wind/Hail/ridge-vent clips need edits via Higgsfield (reconnect with /mcp).
 
 _Update this section as the project progresses._
 
