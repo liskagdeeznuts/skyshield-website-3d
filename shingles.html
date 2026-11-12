@@ -15,6 +15,7 @@
   <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
   <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=satoshi@400,500,600,700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/animations.css" />
 
   <script type="application/ld+json">
   {
@@ -165,9 +166,38 @@
     <!-- ======================= 02 · LO-OMNI RIDGE VENT ======================= -->
     <section class="section product" id="ridge-vent" aria-labelledby="rv-h">
       <div class="wrap product-grid product-grid--rev">
-        <!-- Real product photo -->
-        <div class="product-photo" data-reveal="left">
-          <img src="assets/img/lomanco-lo-omni.png" width="480" height="320" alt="Lomanco Lo-Omni rolled shingle-over ridge vent with external baffle." loading="lazy" />
+        <!-- Lomanco ridge vent animation: the install clip plays once in view, then the attic airflow loops.
+             Files: assets/video/ridge-vent-{1280,854}.mp4 (+ -poster.jpg), assets/img/ridge-vent-airflow(-960).webp
+             Logic: assets/js/ridge-vent.js   Styles: assets/css/animations.css -->
+        <div class="product-photo rv-anim" data-ridgevent data-reveal="left">
+          <div class="rv-frame" data-cues='[{"t":0,"n":"01","label":"Rolls out over the ridge slot"},{"t":4.8,"n":"02","label":"Capped to match, low profile"}]'>
+            <video class="rv-video" muted playsinline preload="none" poster="assets/video/ridge-vent-poster.jpg"
+              data-src="assets/video/ridge-vent-1280.mp4" data-src-sm="assets/video/ridge-vent-854.mp4"
+              aria-label="Animation: a Lomanco rolled ridge vent unrolls along the roof ridge over the vent slot, then ridge cap shingles cover it."></video>
+            <div class="rv-air" role="img" aria-label="Attic cross-section: cool air enters through the soffit vents, rises along the underside of the roof, and leaves as hot, moist air through the ridge vent.">
+              <img src="assets/img/ridge-vent-airflow.webp" srcset="assets/img/ridge-vent-airflow-960.webp 960w, assets/img/ridge-vent-airflow.webp 1600w" sizes="(max-width: 900px) 92vw, 600px" alt="" loading="lazy" width="1600" height="900" />
+              <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <defs>
+                  <linearGradient id="rvGradL" gradientUnits="userSpaceOnUse" x1="120" y1="640" x2="790" y2="70"><stop offset="0" stop-color="#3B82F6"/><stop offset=".5" stop-color="#60A5FA"/><stop offset=".8" stop-color="#F59E0B"/><stop offset="1" stop-color="#EF4444"/></linearGradient>
+                  <linearGradient id="rvGradR" gradientUnits="userSpaceOnUse" x1="1480" y1="640" x2="810" y2="70"><stop offset="0" stop-color="#3B82F6"/><stop offset=".5" stop-color="#60A5FA"/><stop offset=".8" stop-color="#F59E0B"/><stop offset="1" stop-color="#EF4444"/></linearGradient>
+                </defs>
+                <path class="rv-flow rv-flow--soft" stroke="url(#rvGradL)" d="M70 705 C105 675 125 645 152 618 C180 592 214 570 252 545 L742 186 C772 164 790 145 796 122 C800 106 784 96 752 96 C718 96 690 72 664 40"/>
+                <path class="rv-flow rv-flow--soft" stroke="url(#rvGradR)" d="M1530 705 C1495 675 1475 645 1448 618 C1420 592 1386 570 1348 545 L858 186 C828 164 810 145 804 122 C800 106 816 96 848 96 C882 96 910 72 936 40"/>
+                <path class="rv-flow" stroke="url(#rvGradL)" d="M70 705 C105 675 125 645 152 618 C180 592 214 570 252 545 L742 186 C772 164 790 145 796 122 C800 106 784 96 752 96 C718 96 690 72 664 40"/>
+                <path class="rv-flow" stroke="url(#rvGradR)" d="M1530 705 C1495 675 1475 645 1448 618 C1420 592 1386 570 1348 545 L858 186 C828 164 810 145 804 122 C800 106 816 96 848 96 C882 96 910 72 936 40"/>
+                <polygon class="rv-arrow" fill="#3B82F6" points="146,624 137,649 121,633"/>
+                <polygon class="rv-arrow" fill="#3B82F6" points="1454,624 1463,649 1479,633"/>
+                <polygon class="rv-arrow" fill="#EF4444" points="652,26 677,38 659,54"/>
+                <polygon class="rv-arrow" fill="#EF4444" points="948,26 923,38 941,54"/>
+              </svg>
+              <span class="rv-label" style="left:2.5%;top:73%;--c:#3B82F6"><i></i>Cool air in at the soffits</span>
+              <span class="rv-label" style="left:2.5%;top:4%;--c:#EF4444"><i></i>Hot, moist air out at the ridge</span>
+              <span class="rv-label" style="right:2.5%;top:4%;--c:#1D4ED8"><i></i>Baffles keep rain &amp; snow out</span>
+            </div>
+            <span class="rv-cap" aria-hidden="true"><span class="rc-n">01</span><span class="rc-t">Rolls out over the ridge slot</span></span>
+            <button class="rv-replay" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>Replay install</button>
+          </div>
+          <p class="rv-legend" aria-hidden="true"><span><i style="--c:#3B82F6"></i>Cool air in at the soffits</span><span><i style="--c:#EF4444"></i>Hot, moist air out at the ridge</span><span><i style="--c:#1D4ED8"></i>Baffles keep rain &amp; snow out</span></p>
         </div>
         <div class="product-copy" data-reveal="right">
           <h2 class="display h-section" id="rv-h">Lomanco Lo-Omni Ridge Vent</h2>
@@ -315,6 +345,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="assets/js/lib.js"></script>
   <script src="assets/js/shingles.js"></script>
+  <script src="assets/js/ridge-vent.js"></script>
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>

@@ -17,6 +17,7 @@
   <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
   <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=satoshi@400,500,600,700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/animations.css" />
 
   <!-- LocalBusiness / RoofingContractor JSON-LD (real NAP from content.md) -->
   <script type="application/ld+json">
@@ -124,63 +125,54 @@
       </div>
     </section>
 
-    <!-- ======================= ROOF SYSTEM, pinned exploded image + scroll callouts ======================= -->
-    <section class="roofsys" id="roof-system" aria-labelledby="system-h">
-      <div class="roofsys-pin">
-        <div class="roofsys-grid">
-          <div class="roofsys-head">
-            <h2 class="display h-section" id="system-h" data-reveal="up">The SkyShield roof system</h2>
-            <p class="lede" data-reveal="up" data-delay="0.08">A roof only performs as well as the layers you do not see. Scroll to pull ours apart, from the shingles down to the deck.</p>
+    <!-- ======================= ROOF SYSTEM: scroll-scrubbed 3D (house turns in, then each layer lifts off) =======================
+         Frames: assets/roof-system/{desktop,mobile}/f_000-179.webp   Logic: assets/js/roof-system.js   Styles: assets/css/animations.css
+         Layer order matches how a roof is built, top to bottom: shingles, ridge vent, underlayment, ice & water, deck. -->
+    <section class="rsys" id="roof-system" aria-labelledby="system-h" data-rsys>
+      <div class="rsys-pin">
+        <div class="rsys-grid">
+          <div class="rsys-head">
+            <p class="eyebrow">What goes on your roof</p>
+            <h2 class="display h-section" id="system-h">The SkyShield roof system</h2>
+            <p class="lede">A roof only performs as well as the layers you do not see. Scroll to take ours apart, from the shingles down to the deck.</p>
           </div>
 
-          <div class="roof-canvas-wrap">
-            <!-- Frame-scrub: 120 JPEG frames pre-extracted from assets/roof-reveal.mp4 into
-                 assets/roof-frames/ (via ffmpeg-static). home.js preloads them and scrubs the
-                 canvas to scroll. The source clip ASSEMBLES the roof, so scroll progress is
-                 reversed -> scroll-down pulls the roof APART. To refresh, re-run the extraction. -->
-            <canvas class="roof-canvas" role="img"
-              aria-label="A SkyShield TAMKO roof separating layer by layer as you scroll: Titan XT shingles lift off first, then the Lomanco Lo-Omni ridge vent, the ice and water barrier, the SkyShield-branded underlayment, and the wood decking."></canvas>
-            <!-- Numbered markers pinned to each layer; reveal/highlight in sync with the left blocks -->
-            <div class="roof-markers" aria-hidden="true">
-              <span class="roof-marker" data-step="0" style="--mx:35%;--my:17%"><span class="rm-n">01</span><span class="rm-line"></span><span class="rm-dot"></span></span>
-              <span class="roof-marker" data-step="1" style="--mx:31%;--my:30%"><span class="rm-n">02</span><span class="rm-line"></span><span class="rm-dot"></span></span>
-              <span class="roof-marker" data-step="2" style="--mx:29%;--my:42%"><span class="rm-n">03</span><span class="rm-line"></span><span class="rm-dot"></span></span>
-              <span class="roof-marker" data-step="3" style="--mx:27%;--my:54%"><span class="rm-n">04</span><span class="rm-line"></span><span class="rm-dot"></span></span>
-              <span class="roof-marker" data-step="4" style="--mx:25%;--my:66%"><span class="rm-n">05</span><span class="rm-line"></span><span class="rm-dot"></span></span>
+          <div class="rsys-stage">
+            <canvas class="rsys-canvas" width="1600" height="900" role="img"
+              aria-label="A house with a new SkyShield roof turns toward you, then the roof separates layer by layer: TAMKO Titan XT shingles lift off first, then the Lomanco ridge vent, the SkyShield synthetic underlayment and the ice and water barrier, leaving the wood roof deck."></canvas>
+            <div class="rsys-markers" aria-hidden="true">
+              <span class="rsys-marker" data-step="0"><span class="m-dot"></span><span class="m-line"></span><span class="m-tag"><span class="m-n">01</span><span class="m-name">Shingles</span></span></span>
+              <span class="rsys-marker" data-step="1"><span class="m-dot"></span><span class="m-line"></span><span class="m-tag"><span class="m-n">02</span><span class="m-name">Ridge vent</span></span></span>
+              <span class="rsys-marker" data-step="2"><span class="m-dot"></span><span class="m-line"></span><span class="m-tag"><span class="m-n">03</span><span class="m-name">Underlayment</span></span></span>
+              <span class="rsys-marker" data-step="3"><span class="m-dot"></span><span class="m-line"></span><span class="m-tag"><span class="m-n">04</span><span class="m-name">Ice &amp; water</span></span></span>
+              <span class="rsys-marker" data-step="4"><span class="m-dot"></span><span class="m-line"></span><span class="m-tag"><span class="m-n">05</span><span class="m-name">Deck</span></span></span>
             </div>
+            <span class="rsys-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>Scroll to take it apart</span>
+            <span class="rsys-progress" aria-hidden="true"><i></i></span>
           </div>
 
-          <!-- Product link-blocks. Reveal top -> bottom as each layer lifts. Each links to its
-               Shingles product section.
-               TODO: add #titan-xt / #ridge-vent / #flashing / #underlayment / #decking anchors on
-               shingles.html so these deep links land on dedicated product sections. -->
-          <div class="roof-blocks">
-            <a class="roof-block" data-step="0" href="shingles.html#titan-xt">
-              <span class="b-i">01</span>
-              <span class="b-body"><span class="b-name">TAMKO Titan XT® Shingles</span><span class="b-cap">Rated to 160 MPH wind and Class 3 impact.</span></span>
-              <span class="b-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
-            </a>
-            <a class="roof-block" data-step="1" href="shingles.html#ridge-vent">
-              <span class="b-i">02</span>
-              <span class="b-body"><span class="b-name">Lomanco Lo-Omni Ridge Vent</span><span class="b-cap">Lets hot attic air escape, keeps rain out.</span></span>
-              <span class="b-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
-            </a>
-            <a class="roof-block" data-step="2" href="shingles.html#ice-water">
-              <span class="b-i">03</span>
-              <span class="b-body"><span class="b-name">Ice &amp; Water Barrier</span><span class="b-cap">A peel-and-stick seal at the eaves and valleys, where leaks start.</span></span>
-              <span class="b-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
-            </a>
-            <a class="roof-block" data-step="3" href="shingles.html#underlayment">
-              <span class="b-i">04</span>
-              <span class="b-body"><span class="b-name">SkyShield Synthetic Underlayment</span><span class="b-cap">A water-resistant layer over the whole roof.</span></span>
-              <span class="b-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
-            </a>
-            <a class="roof-block" data-step="4" href="shingles.html#decking">
-              <span class="b-i">05</span>
-              <span class="b-body"><span class="b-name">Roof Decking</span><span class="b-cap">The solid wood base it all fastens to.</span></span>
-              <span class="b-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
-            </a>
-          </div>
+          <ol class="rsys-steps">
+            <li class="rsys-step" data-step="0"><a class="rsys-link" href="shingles.html#titan-xt">
+              <span class="s-n">01</span>
+              <span class="s-body"><span class="s-name">TAMKO Titan XT® Shingles</span><span class="s-cap"><span>Rated to 160 MPH wind and Class 3 impact. Built for New England storms.</span></span></span>
+              <span class="s-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a></li>
+            <li class="rsys-step" data-step="1"><a class="rsys-link" href="shingles.html#ridge-vent">
+              <span class="s-n">02</span>
+              <span class="s-body"><span class="s-name">Lomanco Lo-Omni Ridge Vent <span class="s-tag">Our upgrade</span></span><span class="s-cap"><span>A low-profile baffled vent that pulls hot, moist air out of the attic and keeps wind-driven rain out. A cooler attic means a longer-lasting roof.</span></span></span>
+              <span class="s-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a></li>
+            <li class="rsys-step" data-step="2"><a class="rsys-link" href="shingles.html#underlayment">
+              <span class="s-n">03</span>
+              <span class="s-body"><span class="s-name">SkyShield Synthetic Underlayment</span><span class="s-cap"><span>A tear-resistant, water-resistant layer over the entire deck. A second line of defense under the shingles.</span></span></span>
+              <span class="s-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a></li>
+            <li class="rsys-step" data-step="3"><a class="rsys-link" href="shingles.html#ice-water">
+              <span class="s-n">04</span>
+              <span class="s-body"><span class="s-name">Ice &amp; Water Barrier</span><span class="s-cap"><span>A peel-and-stick seal at the eaves and valleys, where ice dams and leaks start.</span></span></span>
+              <span class="s-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a></li>
+            <li class="rsys-step" data-step="4"><a class="rsys-link" href="shingles.html#decking">
+              <span class="s-n">05</span>
+              <span class="s-body"><span class="s-name">Roof Decking</span><span class="s-cap"><span>The solid wood base everything fastens to. We replace soft or rotted sheets before anything goes down.</span></span></span>
+              <span class="s-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a></li>
+          </ol>
         </div>
       </div>
     </section>
@@ -440,6 +432,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="assets/js/lib.js"></script>
   <script src="assets/js/home.js"></script>
+  <script src="assets/js/roof-system.js"></script>
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>

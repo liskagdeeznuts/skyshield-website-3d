@@ -571,3 +571,99 @@ body::after {
   .wind-diagram { grid-template-columns: 1fr 1fr; }
   .damage-grid { grid-template-columns: 1fr; }
 }
+
+/* =============================================================================
+   INSURANCE PAGE — WIND DAMAGE VIDEO HERO
+   Full-bleed looping clip under a light editorial scrim. Text sits directly on
+   the footage (no cards); readability comes from weight + the left/top/bottom
+   white veils. The stage tracker at the bottom is driven by assets/js/wind.js.
+   ========================================================================== */
+.wind-hero { position: relative; z-index: 0; min-height: 100svh; display: grid; grid-template-rows: 1fr auto;
+  margin-top: calc(-1 * var(--nav-h)); padding-top: var(--nav-h); overflow: hidden; background: #fff; isolation: isolate; }
+.wind-media { position: absolute; inset: 0; z-index: 0; }
+/* Desktop: the clip is pushed right (left offset + right-anchored crop) so the house /
+   shingle action sits beside the copy instead of under it. The gap it leaves on the
+   left is under the fully opaque part of the scrim. */
+.wind-video { position: absolute; top: 0; left: 16%; width: 100%; height: 100%; object-fit: cover; object-position: 100% 50%; }
+.wind-video::-webkit-media-controls { display: none !important; }
+.wind-scrim { position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(40vw 11vh at 24% 89%, var(--bg) 0%, var(--bg) 62%, rgba(244,246,250,.7) 84%, transparent 100%),
+    radial-gradient(70vw 34vh at 0% 100%, var(--bg) 0%, rgba(244,246,250,.98) 50%, rgba(244,246,250,.75) 78%, transparent 100%),
+    linear-gradient(180deg, rgba(244,246,250,.92) 0%, rgba(244,246,250,.35) 9%, transparent 18%),
+    linear-gradient(0deg, var(--bg) 0%, rgba(244,246,250,.96) 10%, rgba(244,246,250,.6) 20%, transparent 32%),
+    linear-gradient(90deg, rgba(244,246,250,1) 0%, rgba(244,246,250,1) 17%, rgba(244,246,250,.9) 34%, rgba(244,246,250,.5) 50%, rgba(244,246,250,.08) 64%, transparent 76%); }
+
+.wind-inner { position: relative; z-index: 2; align-self: center; display: grid; grid-template-columns: minmax(0, 660px) 1fr;
+  padding-block: clamp(1rem, 3vh, 2.5rem) clamp(1rem, 3vh, 2rem); }
+.wind-copy { display: grid; gap: clamp(.9rem, 2.2vh, 1.4rem); justify-items: start; }
+.wind-copy h1 { text-wrap: balance; color: var(--ink); font-weight: 600; letter-spacing: -.028em; line-height: .98; margin-block: .05em .05em;
+  font-size: clamp(2.6rem, min(6.6vw, 10.2vh), 5.1rem); }
+.wind-copy .lede { max-width: 50ch; font-size: clamp(1rem, min(1.5vw, 2.4vh), 1.22rem); }
+.wind-trust-x { color: var(--muted); }
+.wind-actions { justify-content: flex-start; margin-top: 0; }
+.wind-trust { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; font-size: .9rem; color: var(--ink-soft); }
+.wind-trust .stars { color: var(--amber); letter-spacing: .08em; font-size: .95rem; }
+.wind-trust strong { color: var(--ink); font-weight: 700; }
+
+/* Bottom bar: stage tracker + pause toggle */
+.wind-bar { position: relative; z-index: 2; display: flex; align-items: flex-end; gap: clamp(1rem, 3vw, 2.5rem);
+  padding-bottom: clamp(1.1rem, 3vh, 2rem); }
+.wind-stages-wrap { flex: 1; min-width: 0; }
+.wind-now { display: none; }
+.wind-stages { display: grid; grid-template-columns: repeat(7, 1fr); gap: clamp(.5rem, 1.2vw, 1rem); }
+.wind-stages button { display: grid; gap: .6rem; width: 100%; text-align: left; padding: .35rem 0 0; border-radius: 6px;
+  color: var(--muted); font-size: .72rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; line-height: 1.3;
+  transition: color .35s var(--ease-out), transform .35s var(--ease-spring); }
+.wind-stages button:hover { color: var(--ink); transform: translateY(-1px); }
+.wind-stages button:active { transform: translateY(0) scale(.99); }
+.wind-stages button:focus-visible { outline-offset: 4px; }
+.wind-stages li.is-active button, .wind-stages li.is-done button { color: var(--ink); }
+.wind-stages li.is-active button { color: var(--ink); }
+.wind-stages b { color: var(--accent); margin-right: .45rem; font-variant-numeric: tabular-nums; }
+.wind-stages i { display: block; height: 2px; border-radius: 2px; background: rgba(15,23,38,.14); overflow: hidden; }
+.wind-stages i::after { content: ""; display: block; height: 100%; width: 100%; background: var(--accent);
+  transform: scaleX(var(--p, 0)); transform-origin: left center; }
+.wind-stages span { display: block; text-wrap: balance; }
+
+.wind-toggle { flex: 0 0 auto; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--surface); color: var(--ink); border: 1px solid var(--line); box-shadow: var(--shadow-sm);
+  transition: transform .5s var(--ease-spring), box-shadow .4s, border-color .25s, color .25s; }
+.wind-toggle:hover { transform: translateY(-2px); border-color: var(--accent); color: var(--accent); box-shadow: var(--shadow-md); }
+.wind-toggle:active { transform: scale(.95); }
+.wind-toggle svg { width: 18px; height: 18px; }
+.wind-toggle .wt-play, .wind-hero.is-paused .wind-toggle .wt-pause { display: none; }
+.wind-hero.is-paused .wind-toggle .wt-play { display: block; }
+
+/* Primer section directly below the hero (the 4-stage diagram) */
+.wind-primer { background: var(--bg); padding-top: clamp(4.5rem, 9vh, 7rem); }
+.wind-primer .ins-hero-head h2 { margin-block: .4rem .9rem; }
+
+@media (max-width: 980px) {
+  .wind-inner { grid-template-columns: minmax(0, 560px) 1fr; }
+}
+@media (max-width: 760px) {
+  .wind-hero { min-height: 100svh; }
+  .wind-inner { grid-template-columns: 1fr; align-self: start; padding-block: clamp(1.5rem, 4vh, 2.5rem) 0; }
+  .wind-video { left: 0; object-position: 50% 62%; }
+  .wind-scrim { background:
+    linear-gradient(180deg, rgba(244,246,250,.97) 0%, rgba(244,246,250,.94) 46%, rgba(244,246,250,.55) 64%, rgba(244,246,250,.12) 78%, transparent 88%),
+    linear-gradient(0deg, var(--bg) 0%, rgba(244,246,250,.85) 10%, transparent 24%); }
+  .wind-copy { gap: var(--s-3); }
+  .wind-copy h1 { font-size: clamp(2.5rem, 11vw, 3.4rem); }
+  .wind-copy .lede { font-size: 1.02rem; }
+  .wind-actions { width: 100%; }
+  .wind-actions .btn { flex: 1; justify-content: center; }
+  .wind-actions .btn--lg { padding: .9rem 1.2rem; font-size: 1rem; }
+  .wind-trust { font-size: .84rem; }
+  .wind-trust-x { display: none; }
+  .wind-now { display: flex; align-items: baseline; gap: .55rem; margin-bottom: .6rem; color: var(--ink);
+    font-size: .78rem; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; }
+  .wind-now b { color: var(--accent); font-variant-numeric: tabular-nums; }
+  .wind-stages { gap: .35rem; }
+  .wind-stages button { padding-top: 0; }
+  .wind-stages span { display: none; }
+  .wind-toggle { width: 42px; height: 42px; }
+}
+
+/* Reduced-motion / capture: the clip never autoplays; the poster frame stands in. */

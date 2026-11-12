@@ -15,6 +15,7 @@
   <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
   <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=satoshi@400,500,600,700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/animations.css" />
 
   <script type="application/ld+json">
   {
@@ -61,62 +62,110 @@
   </aside>
 
   <main>
-    <!-- ======================= HERO + WIND DAMAGE PRIMER ======================= -->
-    <section class="section ins-hero" id="wind" aria-labelledby="wind-h">
+    <!-- ======================= HERO: WIND DAMAGE VIDEO ======================= -->
+    <!-- Full-bleed, autoplaying (muted, looping) 19s wind-damage animation with the
+         headline over it. The stage tracker along the bottom is synced to the video's
+         own five beats (looks fine -> wind gets under -> seal broken -> water finds the
+         nails -> hidden leak). Reduced-motion / capture mode shows the poster frame. -->
+    <section class="wind-hero" id="wind" aria-labelledby="wind-h">
+      <div class="wind-media" aria-hidden="true">
+        <video class="wind-video" poster="assets/video/wind-damage-poster.jpg" muted playsinline loop preload="auto"
+          data-src="assets/video/wind-damage-hero.mp4" data-src-sm="assets/video/wind-damage-hero-960.mp4"
+          tabindex="-1"></video>
+        <div class="wind-scrim"></div>
+      </div>
+
+      <div class="wrap wind-inner">
+        <div class="wind-copy">
+          <p class="eyebrow" data-reveal="up">Storm &amp; wind damage &middot; Insurance restoration</p>
+          <h1 class="display h-hero" id="wind-h" data-reveal="up" data-delay="0.06">Looks fine from the driveway. <span class="accent">Wind damage counts on that.</span></h1>
+          <p class="lede" data-reveal="up" data-delay="0.12">A gust doesn't have to rip shingles off. It lifts a tab, breaks the seal, and water finds the nails. By the time a stain shows on your ceiling, the roof has been leaking for months. We find it first, document it, and walk you through the claim.</p>
+          <div class="hero-actions wind-actions" data-reveal="up" data-delay="0.18">
+            <a class="btn btn--primary" href="#contact">Get a Free Inspection
+              <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+            </a>
+            <a class="btn btn--ghost" href="#matching-law">The Connecticut matching law</a>
+          </div>
+          <p class="wind-trust" data-reveal="up" data-delay="0.24">
+            <span class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            <span><strong>5.0</strong> on Google, 167 reviews<span class="wind-trust-x"> &middot; TAMKO Diamond Pro, top 5%</span></span>
+          </p>
+        </div>
+      </div>
+
+      <div class="wrap wind-bar" data-reveal="up" data-delay="0.3">
+        <div class="wind-stages-wrap">
+          <p class="wind-now" aria-live="polite"><b>01</b><span>Looks fine</span></p>
+          <ol class="wind-stages" aria-label="The seven stages of hidden wind damage, synced to the animation">
+            <li data-from="0" data-to="4.7"><button type="button"><i></i><span><b>01</b>Looks fine</span></button></li>
+            <li data-from="4.7" data-to="7.2"><button type="button"><i></i><span><b>02</b>Wind gets under</span></button></li>
+            <li data-from="7.2" data-to="9.6"><button type="button"><i></i><span><b>03</b>Seal broken</span></button></li>
+            <li data-from="9.6" data-to="16.2"><button type="button"><i></i><span><b>04</b>Water finds the nails</span></button></li>
+            <li data-from="16.2" data-to="19"><button type="button"><i></i><span><b>05</b>Hidden leak</span></button></li>
+            <li data-from="19" data-to="22.7"><button type="button"><i></i><span><b>06</b>Mold sets in</span></button></li>
+            <li data-from="22.7" data-to="29.7"><button type="button"><i></i><span><b>07</b>Ceiling fails</span></button></li>
+          </ol>
+        </div>
+        <button class="wind-toggle" type="button" aria-label="Pause animation" aria-pressed="false">
+          <svg class="wt-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+          <svg class="wt-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- ======================= HOW WIND DAMAGE PROGRESSES ======================= -->
+    <section class="section wind-primer" id="how-it-happens" aria-labelledby="how-h">
       <div class="wrap">
         <div class="ins-hero-head">
-          <p class="eyebrow" data-reveal="up">Insurance restoration</p>
-          <h1 class="display h-hero" id="wind-h" data-reveal="up" data-delay="0.06">Wind damage hides in plain sight.</h1>
-          <p class="lede" data-reveal="up" data-delay="0.12">Wind doesn't always tear shingles off. A gust gets under the tab, breaks the sealant bond, lifts it, and lets it drop back with a hairline crease. From the ground the roof looks fine, but the seal is broken, water gets under, and the damage spreads.</p>
+          <p class="eyebrow" data-reveal="up">How it happens</p>
+          <h2 class="display h-section" id="how-h" data-reveal="up" data-delay="0.06">Wind or hail, the damage starts where you can't see it.</h2>
+          <p class="lede" data-reveal="up" data-delay="0.12">Wind lifts a tab and breaks the seal. Hail bruises the shingle and cracks the mat underneath. Either way the roof looks fine from the ground while water finds its way in. Pick one and watch how it plays out.</p>
         </div>
 
-        <!-- ============================================================================
-             WIND_DAMAGE_SLOT
-             Static diagram for now. A scroll-scrubbed wind animation (gust -> uplift ->
-             broken seal -> crease) drops in here later, same pattern as the roof reveal.
-             ============================================================================ -->
-        <ol class="wind-diagram" data-stagger aria-label="How wind damage progresses, in four stages">
-          <li class="wind-step" data-reveal="up">
-            <span class="ws-n">01</span>
-            <svg class="ws-art" viewBox="0 0 120 80" aria-hidden="true">
-              <rect x="10" y="52" width="100" height="10" rx="2" class="ws-deck"/>
-              <rect x="22" y="44" width="76" height="10" rx="2" class="ws-tab"/>
-              <path d="M16 34c14 -10 30 -10 40 -2" class="ws-wind"/><path d="M52 28l6 4l-7 3" class="ws-wind"/>
-            </svg>
-            <span class="ws-t">A gust gets under</span>
-            <span class="ws-c">Wind pushes beneath the shingle tab.</span>
-          </li>
-          <li class="wind-step" data-reveal="up">
-            <span class="ws-n">02</span>
-            <svg class="ws-art" viewBox="0 0 120 80" aria-hidden="true">
-              <rect x="10" y="52" width="100" height="10" rx="2" class="ws-deck"/>
-              <rect x="22" y="44" width="76" height="10" rx="2" class="ws-tab" transform="rotate(-7 22 49)"/>
-              <line x1="24" y1="50" x2="60" y2="50" class="ws-break"/>
-            </svg>
-            <span class="ws-t">The seal breaks</span>
-            <span class="ws-c">The adhesive bond lets go at the edge.</span>
-          </li>
-          <li class="wind-step" data-reveal="up">
-            <span class="ws-n">03</span>
-            <svg class="ws-art" viewBox="0 0 120 80" aria-hidden="true">
-              <rect x="10" y="52" width="100" height="10" rx="2" class="ws-deck"/>
-              <rect x="22" y="44" width="76" height="10" rx="2" class="ws-tab" transform="rotate(-20 22 49)"/>
-            </svg>
-            <span class="ws-t">It lifts and flaps</span>
-            <span class="ws-c">The tab raises, exposing the deck.</span>
-          </li>
-          <li class="wind-step" data-reveal="up">
-            <span class="ws-n">04</span>
-            <svg class="ws-art" viewBox="0 0 120 80" aria-hidden="true">
-              <rect x="10" y="52" width="100" height="10" rx="2" class="ws-deck"/>
-              <rect x="22" y="44" width="76" height="10" rx="2" class="ws-tab"/>
-              <path d="M52 44l4 10l-6 -2" class="ws-crease"/>
-              <path d="M60 60c0 4 -6 4 -6 0c0 -3 3 -6 3 -6s3 3 3 6z" class="ws-water"/>
-            </svg>
-            <span class="ws-t">Crease, then creep</span>
-            <span class="ws-c">It falls with a crease; water gets in.</span>
-          </li>
-        </ol>
+        <!-- ======================= STORM EXPLAINER: wind + hail animations =======================
+             Videos: assets/video/{wind,hail}-{1280,854}.mp4 (+ -poster.jpg)   Logic: assets/js/storm-explainer.js
+             Edit the step copy freely. data-t = the second in the video where that step starts. -->
+        <div class="storm" data-storm>
+          <div class="storm-top">
+            <div class="storm-tabs" role="tablist" aria-label="Choose a type of storm damage">
+              <button class="storm-tab" type="button" role="tab" id="storm-tab-wind" aria-selected="true" aria-controls="storm-panel" data-storm-tab="wind">Wind</button>
+              <button class="storm-tab" type="button" role="tab" id="storm-tab-hail" aria-selected="false" aria-controls="storm-panel" data-storm-tab="hail" tabindex="-1">Hail</button>
+            </div>
+            <p class="storm-note">Plays on its own. Tap any step to jump to it.</p>
+          </div>
+          <div class="storm-grid" id="storm-panel" role="tabpanel" aria-labelledby="storm-tab-wind">
+            <figure class="storm-media">
+              <video class="storm-video" muted playsinline loop preload="none" poster="assets/video/wind-poster.jpg" src="assets/video/wind-1280.mp4"
+                data-src-wind="assets/video/wind-1280.mp4" data-src-wind-sm="assets/video/wind-854.mp4" data-poster-wind="assets/video/wind-poster.jpg"
+                data-label-wind="Animation: wind lifts a shingle and breaks its seal, rain runs into the nail holes, and a hidden leak leads to mold and a failed ceiling."
+                data-src-hail="assets/video/hail-1280.mp4" data-src-hail-sm="assets/video/hail-854.mp4" data-poster-hail="assets/video/hail-poster.jpg"
+                data-label-hail="Animation: one-inch hail bruises a shingle, dents the gutters and vents, cracks the mat inside the shingle, and water eventually leaks into the home."
+                aria-label="Animation: wind lifts a shingle and breaks its seal, rain runs into the nail holes, and a hidden leak leads to mold and a failed ceiling."></video>
+              <figcaption class="storm-cap" aria-hidden="true"><span class="sc-n">01</span><span class="sc-t">Looks fine from the ground</span></figcaption>
+              <button class="storm-toggle" type="button" aria-label="Pause animation">
+                <svg class="i-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+                <svg class="i-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>
+              </button>
+              <span class="storm-bar" aria-hidden="true"><i></i></span>
+            </figure>
+
+            <ol class="storm-steps" data-storm-steps="wind" aria-label="How wind damage turns into a leak">
+              <li><button class="storm-step" type="button" data-t="0"><span class="ss-n">01</span><span class="ss-body"><span class="ss-t">Looks fine from the ground</span><span class="ss-c">Wind damage often can't be seen from the driveway.</span></span></button></li>
+              <li><button class="storm-step" type="button" data-t="1.6"><span class="ss-n">02</span><span class="ss-body"><span class="ss-t">Gusts race up the roof</span><span class="ss-c">Wind flows up the slope and works under the shingle edges.</span></span></button></li>
+              <li><button class="storm-step" type="button" data-t="4.8"><span class="ss-n">03</span><span class="ss-body"><span class="ss-t">The seal breaks</span><span class="ss-c">The tab lifts, the sealant bond lets go, and the shingle can crease.</span></span></button></li>
+              <li><button class="storm-step" type="button" data-t="9.5"><span class="ss-n">04</span><span class="ss-body"><span class="ss-t">Water finds the nails</span><span class="ss-c">Rain runs under the loose tab and into the nail holes.</span></span></button></li>
+              <li><button class="storm-step" type="button" data-t="16.1"><span class="ss-n">05</span><span class="ss-body"><span class="ss-t">Hidden leak, then mold</span><span class="ss-c">Water drips into the attic, soaks the insulation and mold sets in.</span></span></button></li>
+              <li><button class="storm-step" type="button" data-t="22.8"><span class="ss-n">06</span><span class="ss-body"><span class="ss-t">The ceiling fails</span><span class="ss-c">Left alone, a small roof leak becomes an interior repair.</span></span></button></li>
+            </ol>
+            <ol class="storm-steps" data-storm-steps="hail" aria-label="How hail damage turns into a leak" hidden>
+              <li><button class="storm-step" type="button" data-t="0"><span class="ss-n">01</span><span class="ss-body"><span class="ss-t">One-inch hail</span><span class="ss-c">Hail this size can damage shingles even when the roof still looks fine from the ground.</span></span></button></li>
+              <li><button class="storm-step" type="button" data-t="4.8"><span class="ss-n">02</span><span class="ss-body"><span class="ss-t">Bruised, not broken</span><span class="ss-c">The impact knocks granules loose and leaves a soft bruise.</span></span></button></li>
+              <li><button class="storm-step" type="button" data-t="9.5"><span class="ss-n">03</span><span class="ss-body"><span class="ss-t">Gutters and vents too</span><span class="ss-c">Dents on metal are often the easiest evidence to spot.</span></span></button></li>
+              <li><button class="storm-step" type="button" data-t="14.1"><span class="ss-n">04</span><span class="ss-body"><span class="ss-t">Cracked underneath</span><span class="ss-c">The mat inside the shingle fractures. Over time the crack opens and water gets in.</span></span></button></li>
+              <li><button class="storm-step" type="button" data-t="18.8"><span class="ss-n">05</span><span class="ss-body"><span class="ss-t">Hidden leak</span><span class="ss-c">Water reaches the deck and finds its way into your home.</span></span></button></li>
+            </ol>
+          </div>
+        </div>
         <p class="wind-foot" data-reveal="up">A few compromised shingles after one storm can become a much larger problem, and a much larger claim, than it looks from the driveway.</p>
       </div>
     </section>
@@ -157,7 +206,22 @@
         <div class="proc-phone" data-reveal="right" aria-hidden="true">
           <!-- [PLACEHOLDER] real customer progress-dashboard screenshot (9:19.5 phone). Swap into the frame. -->
           <div class="phone">
-            <div class="phone-screen ph-img"><span>Live progress<br/>dashboard screenshot<br/>(placeholder)</span></div>
+            <!-- Live mini version of the customer progress dashboard. It advances with the five phases
+                 (assets/js/process-tracker.js). To use a real screenshot instead, replace the .phone-screen div with
+                 <div class="phone-screen"><img src="assets/img/dashboard.png" alt="" /></div> -->
+            <div class="phone-screen tk" data-tracker>
+              <div class="tk-top"><img src="assets/img/logo-skyshield.avif" alt="" width="20" height="20" /><b>SkyShield</b><span class="tk-live">Live</span></div>
+              <div class="tk-head"><span class="tk-eyebrow">Your roof project</span><span class="tk-title">Full roof replacement</span><span class="tk-sub">Insurance claim · Progress dashboard</span></div>
+              <div class="tk-meter"><i></i></div>
+              <ol class="tk-steps">
+                <li class="tk-step" data-note="Inspection done. Photos and a full damage report are in your file."><span class="tk-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span class="tk-name">Free Inspection</span><span class="tk-meta">Damage documented</span></li>
+                <li class="tk-step" data-note="We met your adjuster on site and we're handling the back-and-forth with your insurance company."><span class="tk-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span class="tk-name">Claim &amp; Approval</span><span class="tk-meta">Adjuster meeting · color match</span></li>
+                <li class="tk-step" data-note="Next up: pick your TAMKO color and lock in your build date."><span class="tk-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span class="tk-name">Colors &amp; Scheduling</span><span class="tk-meta">TAMKO color · build date</span></li>
+                <li class="tk-step" data-note="Crew on site today. Tear-off and install in progress."><span class="tk-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span class="tk-name">Installation</span><span class="tk-meta">Usually one day</span></li>
+                <li class="tk-step" data-note="All done. Final walkthrough complete and your warranty is registered."><span class="tk-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span class="tk-name">Completed &amp; Warranty</span><span class="tk-meta">Walkthrough · warranty</span></li>
+              </ol>
+              <div class="tk-note"><span class="tk-note-t">Latest update</span><span class="tk-note-b">Inspection done. Photos and a full damage report are in your file.</span></div>
+            </div>
           </div>
         </div>
       </div>
@@ -270,6 +334,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="assets/js/lib.js"></script>
+  <script src="assets/js/storm-explainer.js"></script>
+  <script src="assets/js/process-tracker.js"></script>
+  <script src="assets/js/wind.js"></script>
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>

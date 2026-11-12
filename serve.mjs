@@ -3,6 +3,7 @@
 // Usage: node serve.mjs   (optionally PORT=4000 node serve.mjs)
 import { createServer } from 'node:http';
 import { readFile, stat, readdir } from 'node:fs/promises';
+import { createReadStream } from 'node:fs';
 import { join, extname, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -25,6 +26,8 @@ const MIME = {
   '.ico': 'image/x-icon',
   '.woff': 'font/woff',
   '.woff2': 'font/woff2',
+  '.mp4': 'video/mp4',
+  '.webm': 'video/webm',
 };
 
 const server = createServer(async (req, res) => {
@@ -65,9 +68,33 @@ const server = createServer(async (req, res) => {
       }
     }
 
-    const data = await readFile(filePath);
     const type = MIME[extname(filePath).toLowerCase()] || 'application/octet-stream';
-    res.writeHead(200, { 'Content-Type': type });
+    // Byte-range support so <video> can seek (Safari refuses to play without it).
+    const range = req.headers.range;
+    if (range && info.isFile()) {
+      const m = /^bytes=(\d*)-(\d*)$/.exec(range);
+      if (m) {
+        const size = info.size;
+        let start = m[1] ? Number(m[1]) : 0;
+        let end = m[2] ? Number(m[2]) : size - 1;
+        if (!m[1] && m[2]) { start = Math.max(0, size - Number(m[2])); end = size - 1; }
+        if (start >= size || end >= size || start > end) {
+          res.writeHead(416, { 'Content-Range': `bytes */${size}` });
+          res.end();
+          return;
+        }
+        res.writeHead(206, {
+          'Content-Type': type,
+          'Content-Range': `bytes ${start}-${end}/${size}`,
+          'Accept-Ranges': 'bytes',
+          'Content-Length': end - start + 1,
+        });
+        createReadStream(filePath, { start, end }).pipe(res);
+        return;
+      }
+    }
+    const data = await readFile(filePath);
+    res.writeHead(200, { 'Content-Type': type, 'Accept-Ranges': 'bytes', 'Content-Length': data.length });
     res.end(data);
   } catch (err) {
     res.writeHead(500, { 'Content-Type': 'text/plain' });

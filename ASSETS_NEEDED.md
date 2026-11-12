@@ -15,7 +15,7 @@ Items marked ⚠ block a real section from going live (placeholder until provide
 ## Photography
 - [ ] `thankyou-card.jpg`  ⚠ homeowner's handwritten card — CROP/BLUR any full name or address first
 - [ ] `before-after-1a.jpg` + `before-after-1b.jpg`  ⚠ old vs. new pair for the Shingles slider
-- [ ] `dashboard-screenshot.png`  ⚠ clean shot of the live progress dashboard for the phone mockup
+- [ ] `dashboard-screenshot.png`  (optional) — the phone mockup now shows a live progress tracker; a real screenshot can replace it later
 - [ ] A few hero-quality DJI drone shots of finished roofs
 
 ## Info to confirm (text, not files)

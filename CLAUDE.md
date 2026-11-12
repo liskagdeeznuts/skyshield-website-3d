@@ -31,10 +31,11 @@ Canonical production URL: `https://www.skyshieldroofpro.com/`
 ## Design direction & animation approach
 - Dark, premium aesthetic; per-section background "color zones"; layered depth.
 - **Smooth scroll** (Lenis) drives everything; GSAP `ScrollTrigger` registered on top.
-- **Roof system** (`assets/js/home.js`): a pinned section where a `<canvas>`
-  scrubs through `assets/roof-frames/frame_001.jpg … frame_120.jpg`
-  (exploded → assembled) in sync with scroll, with floating labels / product
-  markers and progress bars revealing in sequence.
+- **Roof system** (`assets/js/roof-system.js`, animation kit Nov 2026): a pinned
+  section where a `<canvas>` scrubs `assets/roof-system/{desktop,mobile}/f_000-179.webp`
+  (house turns in, then layers lift: shingles, ridge vent, underlayment, ice & water,
+  deck) with numbered markers and cards lighting up in sync. Styles in
+  `assets/css/animations.css`. The old `assets/roof-frames/` + `roof-reveal.mp4` are unused.
 - Hero parallax, pinned numbered "why-us" feature scroll, `data-count` count-ups.
 - **Accessibility / capture fallback:** `lib.js` detects `prefers-reduced-motion`
   and headless capture (`navigator.webdriver` or `?capture`) and renders the
@@ -46,18 +47,26 @@ Canonical production URL: `https://www.skyshieldroofpro.com/`
 ## File structure
 ```
 index.html              # Home (hero, roof-system canvas animation, why-us, stats)
-insurance.html          # Insurance page
+insurance.html          # Insurance / wind-damage page (full-bleed video hero)
 shingles.html           # Shingles / product page
 assets/
   css/styles.css        # All site styles (hand-written)
+  css/animations.css    # Styles for the 4 kit animations (uses styles.css tokens)
   js/
     lib.js              # Shared behavior on every page (Lenis+GSAP, reveals, nav, count-up)
     home.js             # Home scroll mechanics (roof canvas scrub, parallax, why-us)
     shingles.js         # Shingles page behavior
+    wind.js             # Insurance page: wind-damage video hero (autoplay, stage tracker)
+    roof-system.js      # Home roof scroll scene (kit)
+    storm-explainer.js  # Insurance Wind / Hail explainer with tabs + steps (kit)
+    process-tracker.js  # Insurance phone: live progress tracker (kit)
+    ridge-vent.js       # Shingles ridge-vent install clip + airflow loop (kit)
     compare.js          # Comparison widget
     main.js             # Misc/shared
   img/                  # Optimized site images (avif/png/svg, logos, badges)
   roof-frames/          # frame_001.jpg … frame_120.jpg — canvas animation sequence
+  video/                # wind-damage-hero.mp4 (+ -960, poster) — insurance hero; wind/hail/ridge-vent-{1280,854}.mp4 (+posters) — kit
+  roof-system/          # 180 webp frames (desktop + mobile) + config.json — home roof scene
 serve.mjs               # Static dev server → http://localhost:3000
 screenshot.mjs          # Puppeteer screenshot tool (see Part 2)
 capture.mjs cap.mjs mshot.mjs   # Additional capture/helper scripts
@@ -82,10 +91,13 @@ instance if one is already running.
 ## Current status / what's unfinished
 Observed state (verify against latest work — some of this is inferred from the code):
 - **Live-ish pages:** `index.html`, `insurance.html`, `shingles.html`.
-- The roof-system section header in `home.js` still describes a
-  **"MECHANIC DEMO — placeholder layers"**; confirm whether the canvas frame
-  scrub has fully replaced placeholder layers and whether product markers/labels
-  are final.
+- **Insurance page hero** is now the 19s wind-damage animation (`assets/video/`), autoplaying
+  muted + looping with the headline over it and a stage tracker synced to the clip. The old
+  WIND_DAMAGE_SLOT is filled; the 4-step diagram moved to its own section below the hero.
+- **Animation kit installed (Nov 12, 2026, uncommitted):** home roof scene, insurance
+  Wind / Hail explainer (in #how-it-happens, under the video hero) + live phone tracker,
+  shingles ridge-vent player. Kit source: `~/Downloads/skyshield-kit/`. Open question:
+  the insurance page now shows the wind animation twice (full-bleed hero + explainer).
 - Hosting/deploy not yet set up here — discussed moving hosting to a static host
   (e.g. Netlify / Cloudflare Pages) and pointing the GoDaddy/Squarespace domain
   at it (Wix was the prior host and is a poor fit for a hand-coded site).
